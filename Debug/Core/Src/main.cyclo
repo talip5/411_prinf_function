@@ -1,8 +1,7 @@
 ../Core/Src/main.c:62:5:_write	1
-../Core/Src/main.c:68:5:_read	1
 ../Core/Src/main.c:78:5:main	1
-../Core/Src/main.c:130:6:SystemClock_Config	3
-../Core/Src/main.c:176:13:MX_USART2_UART_Init	2
-../Core/Src/main.c:209:13:MX_GPIO_Init	1
-../Core/Src/main.c:236:6:send_time_string	1
-../Core/Src/main.c:253:6:Error_Handler	1
+../Core/Src/main.c:134:6:SystemClock_Config	3
+../Core/Src/main.c:180:13:MX_USART2_UART_Init	2
+../Core/Src/main.c:213:13:MX_GPIO_Init	1
+../Core/Src/main.c:240:6:send_time_string	1
+../Core/Src/main.c:276:6:Error_Handler	1

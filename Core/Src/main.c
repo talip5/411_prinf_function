@@ -65,10 +65,10 @@ int _write(int file, char *ptr, int len)
 	return len;
 }
 
-int _read(int file, char *ptr, int len){
+/*int _read(int file, char *ptr, int len){
 	HAL_UART_Receive(&huart2, (uint8_t*)ptr, len, HAL_MAX_DELAY);
 	return len;
-}
+}*/
 /* USER CODE END 0 */
 
 /**
@@ -79,7 +79,9 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	int counter=0;
+
+	uint32_t counter=0;
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -114,8 +116,10 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  //HAL_GPIO_WritePin(LED15_GPIO_Port,LED15_Pin, GPIO_PIN_SET);
 	  //HAL_Delay(1000);
-	  printf("number : %d\r\n",counter++);
-	  HAL_Delay(500);
+	  //printf("number : %d\r\n",counter++);
+	  printf("number1 : %d\r\n",counter++);
+	  //printf("x");
+	  //HAL_Delay(500);
 	  //USART2->DR=66;
 
 
@@ -236,13 +240,32 @@ static void MX_GPIO_Init(void)
 void send_time_string()
 {
 
-	uint32_t n = 0;
+	//uint32_t n = 0;
 	static uint32_t time;
 	time++;
 
-	n = UART_bytes_to_read();
-	printf("Zaman:%u gelen_veri boyutu[byte]:%u Buton Durum:%u\n\r", (unsigned int)time, (unsigned int)n, (unsigned int)button_get_state());
+	//n = UART_bytes_to_read();
+	//printf("Zaman:%u gelen_veri boyutu[byte]:%u Buton Durum:%u\n\r", (unsigned int)time, (unsigned int)n, (unsigned int)button_get_state());
 }
+
+// Redirect printf on USART2
+/*int __io_putchar(int ch)
+{
+  uint8_t c[1];
+  c[0] = ch & 0x00FF;
+  HAL_UART_Transmit(&huart2, &*c, 1, 10);
+  return ch;
+}*/
+
+/*int _write(int file,char ptr, int len)
+{
+  int DataIdx;
+  for(DataIdx= 0; DataIdx< len; DataIdx++)
+  {
+    __io_putchar(ptr++);
+  }
+  return len;
+}*/
 
 /* USER CODE END 4 */
 
