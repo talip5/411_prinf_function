@@ -46,6 +46,8 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 
 uint8_t number=5;
+uint32_t data_rx = 0;
+uint32_t data_tx = 68;
 
 /* USER CODE END PV */
 
@@ -59,16 +61,82 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int _write(int file, char *ptr, int len)
+/*int _write(int file, char *ptr, int len)
 {
-	HAL_UART_Transmit(&huart2, (uint8_t*)ptr, len, HAL_MAX_DELAY);
+	//HAL_UART_Transmit(&huart2, (uint8_t*)ptr, len, HAL_MAX_DELAY);
+	//HAL_UART_Receive(&huart2, (uint8_t*)ptr, len, HAL_MAX_DELAY);
 	return len;
-}
+}*/
 
+/*int __io_putchar(int ch)
+{
+	HAL_UART_Transmit(&huart2, (uint8_t*)ch, 1,1000);
+
+  return ch;
+}*/
+
+/*int _write(int file, char *ptr, int len)
+{
+  (void)file;
+  int DataIdx;
+
+  for (DataIdx = 0; DataIdx < len; DataIdx++)
+  {
+    __io_putchar(*ptr++);
+  }
+  return len;
+}*/
 /*int _read(int file, char *ptr, int len){
 	HAL_UART_Receive(&huart2, (uint8_t*)ptr, len, HAL_MAX_DELAY);
 	return len;
 }*/
+
+
+// Redirect printf on USART2
+int __io_putchar(int ch)
+{
+  uint8_t c[1];
+  //c[0] = ch & 0x00FF;
+  c[0] = 68;
+  HAL_UART_Transmit(&huart2, &*c, 1, 1000);
+  return ch;
+}
+
+/*int _write(int file,char ptr, int len)
+{
+  int DataIdx;
+  for(DataIdx= 0; DataIdx< len; DataIdx++)
+  {
+    __io_putchar(ptr++);
+  }
+  return len;
+}*/
+
+
+/*
+int _write(int le, char *ptr, int len)
+{
+int DataIdx;
+for(DataIdx = 0; DataIdx < len; DataIdx++)
+{
+ITM_SendChar(*ptr++);
+}
+return len;
+}
+*/
+
+/*int _write(int file,char ptr, int len)
+{
+   __io_putchar(ptr);
+
+  return len;
+}*/
+
+/*int __io_putchar(int ch){
+	HAL_UART_Transmit(&huart2, (uint8_t*)ch, 1,1000);
+	return ch;
+}*/
+
 /* USER CODE END 0 */
 
 /**
@@ -105,6 +173,16 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  //USART2->DR = data_tx;
+  void yaz(void){
+
+      //printf("G%d\r\n",counter++);
+	  printf('x');
+
+      return 0;
+  }
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -117,12 +195,15 @@ int main(void)
 	  //HAL_GPIO_WritePin(LED15_GPIO_Port,LED15_Pin, GPIO_PIN_SET);
 	  //HAL_Delay(1000);
 	  //printf("number : %d\r\n",counter++);
-	  printf("number1 : %d\r\n",counter++);
+	  printf("");
+	  //printf("number1 : %d\r\n",counter++);
 	  //printf("x");
-	  //HAL_Delay(500);
+	  HAL_Delay(500);
 	  //USART2->DR=66;
+	  //data_rx = USART2->DR;
 
-
+	  //yaz();
+	  //HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
@@ -248,24 +329,6 @@ void send_time_string()
 	//printf("Zaman:%u gelen_veri boyutu[byte]:%u Buton Durum:%u\n\r", (unsigned int)time, (unsigned int)n, (unsigned int)button_get_state());
 }
 
-// Redirect printf on USART2
-/*int __io_putchar(int ch)
-{
-  uint8_t c[1];
-  c[0] = ch & 0x00FF;
-  HAL_UART_Transmit(&huart2, &*c, 1, 10);
-  return ch;
-}*/
-
-/*int _write(int file,char ptr, int len)
-{
-  int DataIdx;
-  for(DataIdx= 0; DataIdx< len; DataIdx++)
-  {
-    __io_putchar(ptr++);
-  }
-  return len;
-}*/
 
 /* USER CODE END 4 */
 
